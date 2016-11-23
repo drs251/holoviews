@@ -224,8 +224,8 @@ class XArrayInterface(GridInterface):
         indexed = cls.indexed(dataset, selection)
         if (indexed and len(data.data_vars) == 1 and
             len(data[dataset.vdims[0].key].shape) == 0):
-            return data[dataset.vdims[0].key].item()
-        return data
+            return data[dataset.vdims[0].key].item(), {}
+        return data, {}
 
     @classmethod
     def length(cls, dataset):

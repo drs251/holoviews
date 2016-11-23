@@ -272,10 +272,9 @@ class GridInterface(DictInterface):
         for vdim in dataset.vdims:
             data[vdim.key] = dataset.data[vdim.key][index]
 
-        if indexed and len(data[dataset.vdims[0].key]) == 1:
-            return data[dataset.vdims[0].key][0]
-
-        return data
+        if indexed and len(data[dataset.vdims[0].alias]) == 1:
+            return data[dataset.vdims[0].key][0], {}
+        return data, {}
 
 
     @classmethod
