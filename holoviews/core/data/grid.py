@@ -141,7 +141,7 @@ class GridInterface(DictInterface):
                 invert = True
             else:
                 slices.append(slice(None))
-        data = data.__getitem__(slices) if invert else data
+        data = data[slices] if invert else data
 
         # Transpose data
         dims = [name for name in coord_dims[::-1]
@@ -194,7 +194,7 @@ class GridInterface(DictInterface):
         # Iterate over the unique entries applying selection masks
         grouped_data = []
         for unique_key in zip(*util.cartesian_product(keys)):
-            group_data = cls.select(dataset, **dict(zip(dim_names, unique_key)))
+            group_data, _ = cls.select(dataset, **dict(zip(dim_names, unique_key)))
             if np.isscalar(group_data):
                 group_data = {dataset.vdims[0].key: np.atleast_1d(group_data)}
                 for dim, v in zip(dim_names, unique_key):
